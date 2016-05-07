@@ -19,13 +19,14 @@ const (
 )
 
 func main() {
-
+	// Check secret length
 	secretLength := len(secret)
 	if secretLength != 16 && secretLength != 24 && secretLength != 32 {
 		fmt.Printf("Error: `secret` length must be 16, 24 or 32, corresponding to the AES-128, AES-192 or AES-256 algorithms.\n")
 		os.Exit(-1)
 	}
 
+	// Read password from user and remove trailing "\n"
 	reader := bufio.NewReader(os.Stdin)
 	fmt.Print("Enter password to encrypt: ")
 	plaintext, _ := reader.ReadBytes('\n')
@@ -34,15 +35,15 @@ func main() {
 	// Create the aes encryption algorithm
 	c, err := aes.NewCipher([]byte(secret))
 	if err != nil {
-
 		fmt.Printf("Error: %s\n", err)
 		os.Exit(-1)
 	}
 
-	// Encrypted string
+	// Encrypt the password
 	cfb := cipher.NewCFBEncrypter(c, commonIV)
 	ciphertext := make([]byte, len(plaintext))
 	cfb.XORKeyStream(ciphertext, plaintext)
+	
+	// Print out encrypted hex string
 	fmt.Printf("Encrypted password: %x\n", ciphertext)
-
 }
