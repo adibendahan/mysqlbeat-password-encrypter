@@ -6,6 +6,7 @@ import (
 	"crypto/cipher"
 	"fmt"
 	"os"
+	"strings"
 )
 
 var (
@@ -28,13 +29,13 @@ func main() {
 	reader := bufio.NewReader(os.Stdin)
 	fmt.Print("Enter password to encrypt: ")
 	plaintext, _ := reader.ReadBytes('\n')
+	plaintext = []byte(strings.Trim(string(plaintext), "\n"))
 
 	// Create the aes encryption algorithm
 	c, err := aes.NewCipher([]byte(secret))
 	if err != nil {
 
 		fmt.Printf("Error: %s\n", err)
-
 		os.Exit(-1)
 	}
 
