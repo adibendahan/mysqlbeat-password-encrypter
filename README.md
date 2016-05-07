@@ -1,5 +1,5 @@
 # mysqlbeat-password-encrypter
-password encrypter for [mysqlbeat](https://github.com/adibendahan/mysqlbeat)
+password encrypter for [mysqlbeat](https://github.com/adibendahan/mysqlbeat, "github.com/adibendahan/mysqlbeat")
 
 ##How to use
 after building your own mysqlbeat with a unique secret, just paste the secret from your mysqlbeat to encrypt.go, build and run.
